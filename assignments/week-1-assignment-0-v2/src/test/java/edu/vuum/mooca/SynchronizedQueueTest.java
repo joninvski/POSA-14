@@ -11,7 +11,7 @@ import edu.vuum.mooca.SynchronizedQueue.*;
 /**
  * @class SynchronizedQueueTest
  *
- * @brief This class tests queues for proper functionality by 
+ * @brief This class tests queues for proper functionality by
  * 	  using the testQueue method defined in SynchronizedQueue.java
  */
 public class SynchronizedQueueTest {
@@ -19,7 +19,7 @@ public class SynchronizedQueueTest {
      * Indicates how big the queue should be.
      */
     int mQueueSize;
-	
+
     /**
      * Run the test for the queue parameter.
      *
@@ -28,15 +28,15 @@ public class SynchronizedQueueTest {
      */
     static SynchronizedQueueResult runQueueTest(String qName,
                                                 QueueAdapter<Integer> queue) {
-    	if (SynchronizedQueue.diagnosticsEnabled) {	    
-            System.out.println("Starting " 
-                               + qName 
+    	if (SynchronizedQueue.diagnosticsEnabled) {
+            System.out.println("Starting "
+                               + qName
                                + " test...");
-            if (qName == "BuggyBlockingQueue") 
+            if (qName == "BuggyBlockingQueue")
                 System.out.println("An exception may be thrown since "
                                    + qName
                                    + " is intentially BUGGY.");
-    	}		
+    	}
 
     	/**
          * We have to instantiate this object because Java doesn't
@@ -49,17 +49,17 @@ public class SynchronizedQueueTest {
 
         if (SynchronizedQueue.diagnosticsEnabled) {
             System.out.println("End " + qName + " test.\n");
-            System.out.println("See JUnit view for results -- \n" 
-                               + "Green check-marks denote program correctness. \n" 
+            System.out.println("See JUnit view for results -- \n"
+                               + "Green check-marks denote program correctness. \n"
                                + "Blue x-marks indicate a problem with your implementation. \n");
         }
-        
+
         if (result != SynchronizedQueueResult.RAN_PROPERLY)
             return result;
         else
             return null;
     }
-	
+
     /**
      * Runs before each test. Sets mQueueSize.
      * @throws Exception
@@ -87,15 +87,15 @@ public class SynchronizedQueueTest {
             runQueueTest("ArrayBlockingQueue", queueAdapter);
 
         String errorMessage = "";
-        
-        if (errors != null) 
+
+        if (errors != null)
             errorMessage = errors.getString();
 
-        assertNull("Error occurred: " + 
+        assertNull("Error occurred: " +
                    errorMessage,
                    errors);
     }
-	
+
     /**
      * Tests the BuggyBlockingQueue, an intentionally flawed class.
      * The buggyBlockingQueueTest() will succeed if the testQueue
@@ -113,7 +113,7 @@ public class SynchronizedQueueTest {
         // Run a test on the BuggyBlockingQueue.
         SynchronizedQueueResult errors =
             runQueueTest("BuggyBlockingQueue", queueAdapter);
-        
+
         assertNotNull("Test should not complete without errors. " +
                       "BuggyBlockingQueue is intended to function incorrectly.",
                       errors);
