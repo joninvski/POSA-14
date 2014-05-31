@@ -1,0 +1,14 @@
+repositories {
+    mavenCentral()
+}
+
+apply plugin: 'java'
+
+dependencies {
+    testCompile 'junit:junit:4.11'
+}
+
+test {
+//makes the standard streams (err and out) visible at console when running tests
+  testLogging.showStandardStreams = true
+}
