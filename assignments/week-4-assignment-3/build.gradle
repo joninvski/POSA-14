@@ -5,13 +5,13 @@ repositories {
 apply plugin: 'java'
 apply plugin:'application'
 
-mainClassName = "edu/vuum/mocca/BuggyLongTest"
+mainClassName = "edu/vuum/mocca/PingPongRight"
 
 dependencies {
     testCompile 'junit:junit:4.11'
 }
 
 test {
-//makes the standard streams (err and out) visible at console when running tests
+  //makes the standard streams (err and out) visible at console when running tests
   testLogging.showStandardStreams = true
 }

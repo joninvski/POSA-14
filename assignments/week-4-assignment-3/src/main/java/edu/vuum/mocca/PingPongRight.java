@@ -85,9 +85,14 @@ public class PingPongRight {
              * implements the core ping/pong algorithm.
              */
 
-
             // TODO - You fill in here.
-            System.out.println(mStringToPrint);
+            for( int i = 0; i < mMaxLoopIterations; i++ ) {
+                acquire();
+                System.out.println(mStringToPrint + "(" + (i + 1) + ")" );
+                release();
+            }
+            mLatch.countDown();
+
         }
 
         /**
@@ -95,13 +100,7 @@ public class PingPongRight {
          */
         private void acquire() {
             // TODO fill in here
-            try{
-                mSemOne.acquire();
-                mSemTwo.acquire();
-            }
-            finally {
-                return;
-            }
+             mSemOne.acquireUninterruptibly();
         }
 
         /**
@@ -109,7 +108,6 @@ public class PingPongRight {
          */
         private void release() {
             // TODO fill in here
-            mSemOne.release();
             mSemTwo.release();
         }
     }
@@ -125,7 +123,7 @@ public class PingPongRight {
 
         // TODO initialize this by replacing null with the appropriate
         // constructor call.
-        mLatch = new CountDownLatch(maxIterations);
+        mLatch = new CountDownLatch(2);
 
         // Create the ping and pong SimpleSemaphores that control
         // alternation between threads.
@@ -143,12 +141,12 @@ public class PingPongRight {
                                                           * TODO - You fill in
                                                           * here
                                                           */
-                "Ping", pingSema, pongSema, mMaxIterations);
+                pingString, pingSema, pongSema, mMaxIterations);
         PlayPingPongThread pong = new PlayPingPongThread(/*
                                                           * TODO - You fill in
                                                           * here
                                                           */
-                "Pong", pingSema, pongSema, mMaxIterations);
+                pongString, pongSema, pingSema, mMaxIterations);
 
         // TODO - Initiate the ping and pong threads, which will call
         // the run() hook method.
