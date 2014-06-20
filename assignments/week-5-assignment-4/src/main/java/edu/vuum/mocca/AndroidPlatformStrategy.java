@@ -9,22 +9,22 @@ import android.util.Log;
 
 /**
  * @class AndroidPlatformStrategy
- * 
+ *
  * @brief Provides methods that define a platform-independent API for
  *        output data to Android UI thread and synchronizing on thread
  *        completion in the ping/pong game.  It plays the role of the
  *        "Concrete Strategy" in the Strategy pattern.
  */
 public class AndroidPlatformStrategy extends PlatformStrategy
-{	
+{
     /** TextViewVariable. */
     private TextView mTextViewOutput;
-	
+
     /** Activity variable finds gui widgets by view. */
     private WeakReference<Activity> mActivity;
 
     public AndroidPlatformStrategy(Object output,
-                                   final Object activityParam)
+            final Object activityParam)
     {
         /**
          * A textview output which displays calculations and
@@ -47,36 +47,47 @@ public class AndroidPlatformStrategy extends PlatformStrategy
     {
         /** (Re)initialize the CountDownLatch. */
         // TODO - You fill in here.
+        mLatch = new CountDownLatch(NUMBER_OF_THREADS);
     }
 
     /** Print the outputString to the display. */
     public void print(final String outputString)
     {
-        /** 
+        /**
          * Create a Runnable that's posted to the UI looper thread
-         * and appends the outputString to a TextView. 
+         * and appends the outputString to a TextView.
          */
         // TODO - You fill in here.
+        mActivity.get().runOnUiThread(new Runnable() {
+            public void run() {
+                mTextViewOutput.setText(mTextViewOutput.getText() + outputString + "\n");
+            }
+        });
     }
 
     /** Indicate that a game thread has finished running. */
     public void done()
-    {	
+    {
         // TODO - You fill in here.
+        mLatch.countDown();
     }
 
     /** Barrier that waits for all the game threads to finish. */
     public void awaitDone()
     {
         // TODO - You fill in here.
+        try {
+            mLatch.await();
+        } catch(java.lang.InterruptedException e) {
+        }
     }
 
-    /** 
+    /**
      * Error log formats the message and displays it for the
      * debugging purposes.
      */
-    public void errorLog(String javaFile, String errorMessage) 
+    public void errorLog(String javaFile, String errorMessage)
     {
-       Log.e(javaFile, errorMessage);
+        Log.e(javaFile, errorMessage);
     }
 }
