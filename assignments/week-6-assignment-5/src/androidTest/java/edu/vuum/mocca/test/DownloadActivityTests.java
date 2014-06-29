@@ -11,6 +11,8 @@ import com.robotium.solo.Solo;
 
 import edu.vuum.mocca.DownloadActivity;
 
+import edu.vuum.mocca.test.R;
+
 /**
  * @class DownloadActivityTests
  *
