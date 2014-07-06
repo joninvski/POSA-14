@@ -21,8 +21,9 @@ public class StorageUtilities {
 	public static final String LOG_TAG = StorageUtilities.class.getCanonicalName();
 	
 	// Constant that denote whether a file should be stored publicly or privately
-	public static final int SECURITY_PUBLIC = 0; // Line 24
-	public static final int SECURITY_PRIVATE = 1;
+	// public static final int SECURITY_PUBLIC = 0; // Line 24
+	// public static final int SECURITY_PRIVATE = 1;
+    //  DONE - Commented out. Use enum SecurityLevel instead.
 	
 	// Constant that denotes what media type a file should be stored as.
 	public static final int MEDIA_TYPE_IMAGE = 1;
@@ -49,7 +50,7 @@ public class StorageUtilities {
 	 * 						the current time and media type.
 	 * @return			A File reference to a newly created temporary file
 	 */
-	public static File getOutputMediaFile(Context context, int type, int security, String name) {
+	public static File getOutputMediaFile(Context context, int type, SecurityLevel security, String name) {
 		Log.d(LOG_TAG, "getOutputMediaFile() type:" + type);
 		
 		// Get the current time stamp
@@ -69,7 +70,7 @@ public class StorageUtilities {
 		}
 		
 		// If security is private, store it in the app's private directory.
-		if (security == SECURITY_PRIVATE) {
+		if (security == Securitylevel.SECURITY_PRIVATE) {
 			storageDir = context.getFilesDir();
 		}
 		// Otherwise, store the file in a public directory depending on its media type.

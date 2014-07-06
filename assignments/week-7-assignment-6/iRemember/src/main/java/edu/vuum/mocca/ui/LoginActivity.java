@@ -20,25 +20,27 @@ public class LoginActivity extends StoryActivityBase{
 
 	// A tag used for debugging with Logcat
 	static final String LOG_TAG = LoginActivity.class.getCanonicalName();
-	
+
 	// The edit texts used
 	EditText mLoginId;
 	EditText mPassword;
-	
+
 	// Make sure we use maximum security to store login credentials
-	static final int MAX_SECURITY = Integer.MAX_VALUE;
-	
+	// static final int MAX_SECURITY = Integer.MAX_VALUE;
+    // DONE - use enum securityLevel instead
+    public enum Securitylevel {SECURITY_PUBLIC, SECURITY_PRIVATE}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		// Setup the UI
 		setContentView(R.layout.login_activity);	// Line 36
-		
+
 		//Find the edit texts
 		mLoginId = (EditText) findViewById(R.id.username);
 		mPassword = (EditText) findViewById(R.id.password);
-		
+
 	}
 
 	/**
@@ -46,20 +48,20 @@ public class LoginActivity extends StoryActivityBase{
 	 */
 	public static File getLoginFile (Context context) {
 		return StorageUtilities.getOutputMediaFile(context, 	// Line 48
-				StorageUtilities.MEDIA_TYPE_TEXT, 
-				MAX_SECURITY, 
+				StorageUtilities.MEDIA_TYPE_TEXT,
+				SecurityLevel.SECURITY_PUBLIC,
 				"login.txt");
 	}
-	
+
 	/**
 	 * Returns the last LoginId input into this activity, or 0 if none is set.
 	 */
 	public static long getLoginId(Context context) {
 		// Get the output file for the login information
 		File loginFile = getLoginFile(context);		// Line 59
-		
+
 		String out = null;
-		
+
 		// If it already exists, read the login ID and return it
 		if (loginFile != null && loginFile.exists()) {
 			try {
@@ -82,9 +84,9 @@ public class LoginActivity extends StoryActivityBase{
 	public static String getPassword(Context context) {
 		// Get the output file for the login information
 		File loginFile = getLoginFile(context);
-		
+
 		String out = null;
-		
+
 		// If it already exists, read the login information from the file and display it
 		if (loginFile != null && loginFile.exists()) {
 			try {
@@ -102,7 +104,7 @@ public class LoginActivity extends StoryActivityBase{
 		return out;
 	}
 
-	
+
 	/**
 	 * The login button was clicked.
 	 */

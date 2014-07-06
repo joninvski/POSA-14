@@ -1,0 +1,40 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.10.+'
+        classpath 'com.jakewharton.sdkmanager:gradle-plugin:0.10.+'
+    }
+}
+
+apply plugin: 'android-sdk-manager'
+apply plugin: 'android'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+     compile 'com.android.support:support-v4:19.1.+'
+     compile 'org.slf4j:slf4j-api:1.7.7'
+     androidTestCompile 'com.jayway.android.robotium:robotium-solo:5.+'
+}
+
+
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "19.1.0"
+
+    lintOptions {
+        abortOnError false
+    }
+
+    defaultConfig {
+        versionCode 19
+        versionName "0.9-BETA"
+        minSdkVersion 7
+        targetSdkVersion 19
+    }
+}
